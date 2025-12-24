@@ -7,6 +7,15 @@
 </head>
 <body>
 
+<button id="chatToggle">💬 Chat</button>
+
+<div id="chat" class="hidden">
+  <div id="messages"></div>
+
+  <input id="chatInput" placeholder="Digite..." />
+  <button id="send">Enviar</button>
+</div>
+
 <div id="player" class="player"></div>
 
 <div id="controls">
@@ -17,21 +26,6 @@
     <button id="right">➡</button>
   </div>
 </div>
-
-<!-- BOTÃO DO CHAT -->
-<div id="chatToggle">💬</div>
-
-<!-- CHAT -->
-<div id="chat" class="hidden">
-  <div id="messages"></div>
-
-  <div id="chatInputArea">
-    <input id="chatInput" placeholder="Digite..." />
-    <button id="send">➤</button>
-  </div>
-</div>
-
-
 
 <!-- IMPORTANTE -->
 <script src="/socket.io/socket.io.js"></script>
