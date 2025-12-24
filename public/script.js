@@ -88,7 +88,17 @@ function move(dx, dy) {
   });
 }
 
-document.getElementById("up").addEventListener("touchstart", () => move(0, -5));
-document.getElementById("down").addEventListener("touchstart", () => move(0, 5));
-document.getElementById("left").addEventListener("touchstart", () => move(-5, 0));
-document.getElementById("right").addEventListener("touchstart", () => move(5, 0));
+function bindButton(btn, dx, dy) {
+  btn.addEventListener("touchstart", e => { e.preventDefault(); startMove(dx, dy); });
+  btn.addEventListener("touchend", stopMove);
+
+  btn.addEventListener("mousedown", () => startMove(dx, dy));
+  btn.addEventListener("mouseup", stopMove);
+  btn.addEventListener("mouseleave", stopMove);
+}
+
+bindButton(up, 0, -5);
+bindButton(down, 0, 5);
+bindButton(left, -5, 0);
+bindButton(right, 5, 0);
+

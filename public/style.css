@@ -7,8 +7,8 @@
 }
 @media (max-width: 600px) {
   .player {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
   }
 }
 #controls {
@@ -18,8 +18,8 @@
 }
 
 #controls button {
-  width: 120px;
-  height: 120px;
-  font-size: 48px;
+  width: 70px;
+  height: 70px;
+  font-size:30px;
   margin: 10px;
 }
