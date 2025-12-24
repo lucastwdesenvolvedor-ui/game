@@ -40,18 +40,12 @@ function createOtherPlayer(id, data) {
 }
 
 document.addEventListener("keydown", e => {
-  if (e.key === "w") myPlayer.y -= 5;
-  if (e.key === "s") myPlayer.y += 5;
-  if (e.key === "a") myPlayer.x -= 5;
-  if (e.key === "d") myPlayer.x += 5;
+  if (!chat.classList.contains("hidden")) return;
 
-  myPlayer.el.style.left = myPlayer.x + "px";
-  myPlayer.el.style.top = myPlayer.y + "px";
-
-  socket.emit("move", {
-    x: myPlayer.x,
-    y: myPlayer.y
-  });
+  if (e.key === "w") move(0, -5);
+  if (e.key === "s") move(0, 5);
+  if (e.key === "a") move(-5, 0);
+  if (e.key === "d") move(5, 0);
 });
 
 socket.on("playerMoved", data => {
@@ -116,4 +110,42 @@ bindButton(up, 0, -5);
 bindButton(down, 0, 5);
 bindButton(left, -5, 0);
 bindButton(right, 5, 0);
+
+
+//chat
+const input = document.getElementById("chatInput");
+const messages = document.getElementById("messages");
+
+document.getElementById("send").addEventListener("click", sendMessage);
+
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendMessage();
+});
+
+function sendMessage() {
+  if (!input.value.trim()) return;
+
+  socket.emit("chatMessage", {
+    message: input.value
+  });
+
+  input.value = "";
+}
+socket.on("chatMessage", data => {
+  const msg = document.createElement("div");
+  msg.textContent = data.id.slice(0, 4) + ": " + data.message;
+
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+});
+
+if (data.message.length > 100) return;
+
+const chat = document.getElementById("chat");
+const chatToggle = document.getElementById("chatToggle");
+
+chatToggle.addEventListener("click", () => {
+  chat.classList.toggle("hidden");
+});
+
 

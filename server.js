@@ -46,3 +46,10 @@ io.on("connection", socket => {
 
 });
 
+socket.on("chatMessage", data => {
+  io.emit("chatMessage", {
+    id: socket.id,
+    message: data.message
+  });
+});
+

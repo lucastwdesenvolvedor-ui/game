@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,6 +17,21 @@
     <button id="right">➡</button>
   </div>
 </div>
+
+<!-- BOTÃO DO CHAT -->
+<div id="chatToggle">💬</div>
+
+<!-- CHAT -->
+<div id="chat" class="hidden">
+  <div id="messages"></div>
+
+  <div id="chatInputArea">
+    <input id="chatInput" placeholder="Digite..." />
+    <button id="send">➤</button>
+  </div>
+</div>
+
+
 
 <!-- IMPORTANTE -->
 <script src="/socket.io/socket.io.js"></script>
