@@ -74,3 +74,21 @@ socket.on("playerDisconnected", id => {
 socket.on("newPlayer", data => {
   createOtherPlayer(data.id, data);
 });
+
+function move(dx, dy) {
+  myPlayer.x += dx;
+  myPlayer.y += dy;
+
+  myPlayer.el.style.left = myPlayer.x + "px";
+  myPlayer.el.style.top = myPlayer.y + "px";
+
+  socket.emit("move", {
+    x: myPlayer.x,
+    y: myPlayer.y
+  });
+}
+
+document.getElementById("up").addEventListener("touchstart", () => move(0, -5));
+document.getElementById("down").addEventListener("touchstart", () => move(0, 5));
+document.getElementById("left").addEventListener("touchstart", () => move(-5, 0));
+document.getElementById("right").addEventListener("touchstart", () => move(5, 0));

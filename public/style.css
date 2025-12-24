@@ -5,3 +5,21 @@
   height: 40px;
   background: blue;
 }
+@media (max-width: 600px) {
+  .player {
+    width: 30px;
+    height: 30px;
+  }
+}
+#controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+#controls button {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  margin: 5px;
+}
