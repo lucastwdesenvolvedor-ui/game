@@ -1,23 +1,3 @@
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
-
-const app = express();
-const server = http.createServer(app);
-
-const io = new Server(server);
-
-app.use(express.static("public"));
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log("Servidor rodando na porta", PORT);
-});
-
-app.use(express.static("public"));
-
-const players = {};
-
 io.on("connection", socket => {
 
   players[socket.id] = { x: 100, y: 100 };
@@ -39,6 +19,14 @@ io.on("connection", socket => {
     });
   });
 
+  // ✅ CHAT (AGORA CORRETO)
+  socket.on("chatMessage", data => {
+    io.emit("chatMessage", {
+      id: socket.id,
+      message: data.message
+    });
+  });
+
   socket.on("disconnect", () => {
     delete players[socket.id];
     socket.broadcast.emit("playerDisconnected", socket.id);
@@ -46,10 +34,4 @@ io.on("connection", socket => {
 
 });
 
-socket.on("chatMessage", data => {
-  io.emit("chatMessage", {
-    id: socket.id,
-    message: data.message
-  });
-});
 
