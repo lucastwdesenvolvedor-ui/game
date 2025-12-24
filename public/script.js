@@ -13,10 +13,19 @@ const otherPlayers = {};
 
 socket.on("currentPlayers", players => {
   for (let id in players) {
-    if (id === socket.id) continue;
-    createOtherPlayer(id, players[id]);
+    if (id === socket.id) {
+      // posição inicial do player local
+      myPlayer.x = players[id].x;
+      myPlayer.y = players[id].y;
+
+      myPlayer.el.style.left = myPlayer.x + "px";
+      myPlayer.el.style.top = myPlayer.y + "px";
+    } else {
+      createOtherPlayer(id, players[id]);
+    }
   }
 });
+
 
 function createOtherPlayer(id, data) {
   const el = document.createElement("div");
@@ -61,4 +70,7 @@ socket.on("playerDisconnected", id => {
     otherPlayers[id].el.remove();
     delete otherPlayers[id];
   }
+});
+socket.on("newPlayer", data => {
+  createOtherPlayer(data.id, data);
 });
