@@ -87,9 +87,24 @@ function move(dx, dy) {
     y: myPlayer.y
   });
 }
+let moveInterval = null;
+
+function startMove(dx, dy) {
+  if (moveInterval) return;
+  moveInterval = setInterval(() => move(dx, dy), 50);
+}
+
+function stopMove() {
+  clearInterval(moveInterval);
+  moveInterval = null;
+}
 
 function bindButton(btn, dx, dy) {
-  btn.addEventListener("touchstart", e => { e.preventDefault(); startMove(dx, dy); });
+  btn.addEventListener("touchstart", e => {
+    e.preventDefault();
+    startMove(dx, dy);
+  });
+
   btn.addEventListener("touchend", stopMove);
 
   btn.addEventListener("mousedown", () => startMove(dx, dy));
